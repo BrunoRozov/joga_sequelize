@@ -1,27 +1,35 @@
 'use strict';
 
 module.exports = {
-  up (queryInterface, Sequelize) {
-    return Promise.all([
-      queryInterface.bulkInsert('Authors', [{
-        name: 'Introduction to Ashtanga',
-        createdAt: new Date(),
-        updatedAt: new Date()
-      }]),
-      queryInterface.bulkInsert('Authors', [{
-        name: 'Morning vinyasa flow routine',
-        createdAt: new Date(),
-        updatedAt: new Date()
-      }]),
-      queryInterface.bulkInsert('Authors', [{
-        name: 'Secrets of a yoga teacher',
-        createdAt: new Date(),
-        updatedAt: new Date()
-      }])
-    ])
+  async up(queryInterface, Sequelize) {
+    const names = [
+      'Introduction to Ashtanga',
+      'Morning vinyasa flow routine',
+      'Secrets of a yoga teacher'
+    ];
+
+    await queryInterface.bulkDelete('Authors', {
+      name: {
+        [Sequelize.Op.in]: names
+      }
+    }, {});
+
+    await queryInterface.bulkInsert('Authors', names.map(name => ({
+      name,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    })));
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('Authors', null, {});
+    return queryInterface.bulkDelete('Authors', {
+      name: {
+        [Sequelize.Op.in]: [
+          'Introduction to Ashtanga',
+          'Morning vinyasa flow routine',
+          'Secrets of a yoga teacher'
+        ]
+      }
+    }, {});
   }
 };

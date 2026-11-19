@@ -14,20 +14,19 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Authors.init({
-    id:{
-     type: DataTypes.INTEGER,
-     autoIncrement: true,
-     primaryKey: true,
-     allowNull: false
-    },
-
-    name:{
-      type: DataTypes.STRING,
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
       allowNull: false
     },
-    
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false
+    }
+  }, {
     sequelize,
-    modelName: 'Authors',
+    modelName: 'Authors'
   });
   return Authors;
 };
