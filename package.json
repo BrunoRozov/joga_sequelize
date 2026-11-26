@@ -15,7 +15,8 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "test": "node -e \"console.log('No tests configured')\""
   },
   "dependencies": {
     "dotenv": "^18.0.9",

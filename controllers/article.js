@@ -1,8 +1,7 @@
 const Sequelize = require("sequelize");
 const sequelize = new Sequelize('mysql://root:qwerty@localhost:3306/joga_sequelize');
 
-const Article = require('../models/article')(sequelize, Sequelize.DataTypes);
-const Authors = require('../models/authors')(sequelize, Sequelize.DataTypes);
+const { Article, Authors, Tag, ArticleTags } = require('../models');
 
 const getAllArtticles = (req, res) => {
     Article.findAll()
@@ -19,7 +18,7 @@ const getArticleBySlug = (req, res) => {
     Article.findOne({
         where: {
             slug: req.params.slug
-        } 
+        }
     })
     .then(article => {
         console.log(article)
